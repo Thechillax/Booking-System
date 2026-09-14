@@ -6,7 +6,7 @@
 
 class Book{
     public:
-    std::vector<std::string> rooms = {};
+    std::vector<std::string> rooms = {};    // insert from text file
 
     bool CheckAvailable(int Choice){
     return Choice > 0 && Choice <= 10;
@@ -15,7 +15,7 @@ class Book{
 
 
 void FileCreationOrOverride(int Choice, int decision){
-        std::ifstream FileWrite("hotel.txt");
+        std::ifstream FileWrite("hotel.txt");    //read file "hotel.txt"
         std::string line;
         if(decision == 1){
         for(int i = 0; i < 10; i++){
@@ -35,7 +35,7 @@ void FileCreationOrOverride(int Choice, int decision){
             std::getline(FileWrite, line);
             rooms.push_back(line);
         if(i == Choice - 1 && rooms.at(i) == "occupied"){
-            CheckRoom(Choice, decision);
+            CheckRoom(Choice, decision);    //override the choosen room by index
             rooms.at(i) = "available";
         }
         else if( i == Choice - 1 && rooms.at(i) == "available"){
@@ -45,11 +45,11 @@ void FileCreationOrOverride(int Choice, int decision){
     }
 }
 int FileCheck(){
-    std::ifstream  File("hotel.txt");
+    std::ifstream  File("hotel.txt");    //tries to read file
     if(!File.is_open()){
-        std::ofstream FileCreate("hotel.txt");
+        std::ofstream FileCreate("hotel.txt");    //creates the text file if it fails to open through ifstream
         for(int m = 0;m < 10; m++){
-            FileCreate << "available" << "\n";
+            FileCreate << "available" << "\n";    //insert text contents via loops
         }
         return 1;
     }
@@ -59,7 +59,7 @@ int FileCheck(){
 
 void FileOverride(int Choice){
     Choice -= 1; 
-    std::ofstream FileOverride("hotel.txt");
+    std::ofstream FileOverride("hotel.txt");    //using ofstream again to override text content inside the text file
     for(int i =0; i < 10;i++){
         FileOverride << rooms.at(i) << '\n';
     }
